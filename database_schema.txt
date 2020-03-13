@@ -1,0 +1,35 @@
+database name: ai_config
+
+map_ai_type_to_ai_name{
+	ai_type bigint,
+	ai_name text
+}
+
+user{
+	id bigint,
+	account text,
+	ai_type bigint,
+	start_time bigint,
+	duration bigint,
+	end_time bigint
+}
+
+admin_user{
+	account text,
+	password text
+}
+
+
+ddl:
+create table admin_user ( account text,password text);
+
+create table map_ai_type_to_ai_name ( ai_type bigint,ai_name text);
+
+create table user ( id bigint,
+	account text,
+	ai_type bigint,
+	start_time bigint,
+	duration bigint,
+	end_time bigint);
+
+

@@ -1,0 +1,21 @@
+
+api:	
+	trang login: 
+		ExistAdminUserByAccountAndPassword (by account, password) (admin-user)
+	trang register:
+		InsertAdminUser (account,password) (admin-user)
+		ExistAdminUserByAccount (account) (admin-user)
+	trang chu:
+		ExistUser (by id) (user)
+		ExistAITYPE (by aitype) (map...)
+		deleteUser (by id)
+		deleteAITYPE (by aitype)
+		addAIType (aitype,ainame)
+		addUser (aitype,ainame) (id,account,aitype,starttime,duration)
+		FindAIType (aitype,ainame)
+		FindUser (id,account,aitype,starttime,duration,endtime)
+		UpdateUser  (id,account,aitype,starttime,duration)
+		UpdateAIType (aitype,ainame)
+		deleteUser (list id)
+		deleteAIType (list aitype)
+4. ghep giao dien voi api
