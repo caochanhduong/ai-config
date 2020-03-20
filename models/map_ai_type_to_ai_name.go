@@ -43,3 +43,32 @@ func GetAllMapAiTypeToAiName() ([] MapAiTypeToAiName,error){
 	}
 	return res, nil
 }
+
+func ExistMapByAIType(ai_type int64) (bool,error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(MySqlMapAiTypeToAiName).Filter("ai_type",ai_type)
+	res := MapAiTypeToAiName{}
+	err := qs.One(&res)
+	if err != nil {
+		return false, err
+	}
+	if (res != MapAiTypeToAiName{}) {
+		return true, nil
+	}
+	return false, nil
+}
+
+func AddMap(map_ai *MapAiTypeToAiName) (int64, error){
+	o := orm.NewOrm()
+	return o.Insert(map_ai)
+}
+
+func UpdateMapByAiType(map_ai *MapAiTypeToAiName) (int64, error) {
+	o := orm.NewOrm()
+	v := MapAiTypeToAiName{AiType: map_ai.AiType}
+	err := o.Read(&v)
+	if err == nil {
+		return o.Update(map_ai)
+	}
+	return 0, err
+}
