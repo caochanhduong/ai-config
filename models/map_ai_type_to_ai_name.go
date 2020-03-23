@@ -1,7 +1,7 @@
 package models
 
 import (
-	
+	"fmt"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -71,4 +71,45 @@ func UpdateMapByAiType(map_ai *MapAiTypeToAiName) (int64, error) {
 		return o.Update(map_ai)
 	}
 	return 0, err
+}
+
+func FindMapByAiTypeAndAiName(AiType int64, AiName string) ([]MapAiTypeToAiName, error) {
+	o := orm.NewOrm()
+	cond := orm.NewCondition()
+	fmt.Println(AiType)
+	fmt.Println(AiName)
+	if AiType != 0 {
+		cond = cond.And("ai_type",AiType)
+	}
+
+	if AiName != "" {
+		cond = cond.And("ai_name",AiName)
+	}
+	var v []MapAiTypeToAiName
+	qs := o.QueryTable(MySqlMapAiTypeToAiName)
+	qs = qs.SetCond(cond)
+	_, err := qs.All(&v)
+	if err != nil{
+		return nil, err
+	}
+	return v, nil
+}
+
+func DeleteMapByAiType(ai_type int64) error {
+	o := orm.NewOrm()
+	_, err := o.QueryTable(MySqlMapAiTypeToAiName).Filter("ai_type",ai_type).Delete()
+	return err
+}
+
+func DeleteUserByAiTypes(ai_types []int64) error {
+	o := orm.NewOrm()
+	cond := orm.NewCondition()
+	for _, ai_type := range ai_types {
+		if ai_type != 0 {
+			cond = cond.Or("ai_type",ai_type)
+		}
+	}
+	_, err := o.QueryTable(MySqlMapAiTypeToAiName).SetCond(cond).Delete()
+
+	return err
 }

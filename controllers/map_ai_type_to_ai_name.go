@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"strconv"
+	"strings"
 )
 
 type MapAiTypeToAiNameController struct {
@@ -117,5 +119,93 @@ func (c *MapAiTypeToAiNameController) UpdateMapByAiType() {
 		c.Data["json"] = map_ai
 	}
 	
+	c.ServeJSON()
+}
+
+func (c*MapAiTypeToAiNameController) FindMapByAiTypeAndAiName(){
+	
+
+	// if v, err := c.GetInt64("ai_type"); err == nil {
+	// 	ai_type = v
+	// }
+
+	// ai_name = c.GetString("ai_name","")
+	aitypeStr := c.Ctx.Input.Param(":ai_type")
+	ainameStr := c.Ctx.Input.Param(":ai_name")
+	aitypeInt, err := strconv.ParseInt(aitypeStr, 10, 64)
+	fmt.Println("------------------ai_type")
+	fmt.Println(aitypeInt)
+	fmt.Println("------------------ai_name")
+	fmt.Println(ainameStr)
+
+	// TODO:Validate ai_type as int64, ai_name as string
+
+	res, err := models.FindMapByAiTypeAndAiName(aitypeInt,ainameStr)
+
+	if err != nil &&  err != orm.ErrNoRows{
+		c.Ctx.Abort(http.StatusBadRequest,err.Error())
+		c.Data["json"] = "Can not find AI Type"
+		c.ServeJSON()
+		return
+	}
+
+	c.Ctx.Output.SetStatus(http.StatusOK)
+	c.Data["json"] = res
+
+	
+	c.ServeJSON()
+}
+
+func (c*MapAiTypeToAiNameController) DeleteMapByAiType() {
+	aiTypeStr := c.Ctx.Input.Param(":ai_type")
+	aiTypeInt, _ := strconv.ParseInt(aiTypeStr, 10, 64)
+	fmt.Println("------------------aiTypeInt")
+	fmt.Println(aiTypeInt)
+
+
+	// TODO:Validate ai_type as int64, ai_name as string
+
+	err := models.DeleteMapByAiType(aiTypeInt)
+
+	if err != nil{
+		c.Ctx.Abort(http.StatusBadRequest,err.Error())
+		c.Data["json"] = "Error delete Map"
+		c.ServeJSON()
+		return
+	}
+
+	c.Ctx.Output.SetStatus(http.StatusOK)
+	c.Data["json"] = "Delete success"
+
+	c.ServeJSON()
+}
+//:id=1,2,3,4 => split => [1,2,3,4]
+func (c*MapAiTypeToAiNameController) DeleteMapByAiTypes() {
+	aiTypeStr := c.Ctx.Input.Param(":ai_types")
+	listaiTypeStr := strings.Split(aiTypeStr, ",") 
+	var listaiTypeInt []int64
+	for _,v:= range listaiTypeStr{
+		aiTypeInt, _ := strconv.ParseInt(v, 10, 64)
+		listaiTypeInt = append(listaiTypeInt, aiTypeInt)
+	}
+	
+	fmt.Println("------------------listaiTypeInt")
+	fmt.Println(listaiTypeInt)
+
+
+	// TODO:Validate ai_type as int64, ai_name as string
+
+	err := models.DeleteUserByAiTypes(listaiTypeInt)
+
+	if err != nil{
+		c.Ctx.Abort(http.StatusBadRequest,err.Error())
+		c.Data["json"] = "Error delete Maps"
+		c.ServeJSON()
+		return
+	}
+
+	c.Ctx.Output.SetStatus(http.StatusOK)
+	c.Data["json"] = "Delete success"
+
 	c.ServeJSON()
 }

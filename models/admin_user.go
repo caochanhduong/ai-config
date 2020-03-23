@@ -58,3 +58,36 @@ func ExistAdminUserByAccountAndPassword (account string, password string) (bool,
 	}
 	return false, nil
 }
+
+func AddAdminUser(admin_user *AdminUser) (int64, error){
+	o := orm.NewOrm()
+	return o.Insert(admin_user)
+}
+
+func ExistAdminUserbyAccount(account string) (bool,error){
+	o := orm.NewOrm()
+	qs := o.QueryTable(MySqlTableAdminUser).Filter("Account",account)
+	res := AdminUser{}
+	err := qs.One(&res)
+	if err != nil {
+		return false, err
+	}
+	if (res != AdminUser{}) {
+		return true, nil
+	}
+	return false, nil
+}
+
+func FindAdminUserByAccount(account string) (*AdminUser,error){
+	o := orm.NewOrm()
+	qs := o.QueryTable(MySqlTableAdminUser).Filter("Account",account)
+	res := AdminUser{}
+	err := qs.One(&res)
+	if err != nil {
+		return nil, err
+	}
+	if (res != AdminUser{}) {
+		return &res, nil
+	}
+	return nil, nil
+}

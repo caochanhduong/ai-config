@@ -1,21 +1,21 @@
 
 api:	
 	trang login: 
-		ExistAdminUserByAccountAndPassword (by account, password) (admin-user)
+		ExistAdminUserbutAccountAndPassword (but account, password) (admin-user)(done but not validate input yet)
 	trang register:
-		InsertAdminUser (account,password) (admin-user)
-		ExistAdminUserByAccount (account) (admin-user)
+		InsertAdminUser (account,password) (admin-user)(done but not validate input yet)
+		ExistAdminUserbutAccount (account) (admin-user)(done but not validate input yet)
 	trang chu:
-		ExistUser (by id) (user) (done by not validate input yet)
-		ExistAITYPE (by aitype) (map...)(done by not validate input yet)
-		deleteUser (by id)
-		deleteAITYPE (by aitype)
-		addAIType (aitype,ainame) (done by not validate input yet)
-		addUser (aitype,ainame) (done by not validate input yet) (id,account,aitype,starttime,duration)
-		FindAIType (aitype,ainame)
-		FindUser (id,account,aitype,starttime,duration,endtime)
-		UpdateUser  (id,account,aitype,starttime,duration) (done by not validate input yet)
-		UpdateAIType (aitype,ainame) (done by not validate input yet)
-		deleteUser (list id)
-		deleteAIType (list aitype)
+		ExistUser (but id) (user) (done but not validate input yet)
+		ExistAITYPE (but aitype) (map...)(done but not validate input yet)
+		deleteUser (but id)(done but not validate input yet)
+		deleteAITYPE (but aitype)(done but not validate input yet)
+		addAIType (aitype,ainame) (done but not validate input yet)
+		addUser (aitype,ainame) (done but not validate input yet) (id,account,aitype,starttime,duration)
+		FindAIType (aitype,ainame) (done but not validate input yet)
+		FindUser (id,account,aitype,starttime,duration,endtime) (done but not validate input yet)
+		UpdateUser  (id,account,aitype,starttime,duration) (done but not validate input yet)
+		UpdateAIType (aitype,ainame) (done but not validate input yet)
+		deleteUser (list id)(done but not validate input yet)
+		deleteAIType (list aitype)(done but not validate input yet)
 4. ghep giao dien voi api
