@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"ai-config-project/models"
+	"ai-config-backend/models"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -17,6 +17,9 @@ type MapAiTypeToAiNameController struct {
 
 func (c *MapAiTypeToAiNameController) GetAllMapAiTypeToAiName() {
 	list, err := models.GetAllMapAiTypeToAiName()
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	if err != nil {
 		c.Ctx.Abort(http.StatusBadRequest, err.Error())
 		c.Data["json"] = err.Error()
@@ -43,7 +46,9 @@ func (c *MapAiTypeToAiNameController) AddMap() {
 	map_ai := models.MapAiTypeToAiName{}
 	map_ai.AiType = ai_type
 	map_ai.AiName = ai_name
-
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	if _, err := models.AddMap(&map_ai); err == nil{
 		c.Ctx.Output.SetStatus(http.StatusCreated)
 		c.Data["json"] = map_ai
@@ -64,7 +69,9 @@ func (c *MapAiTypeToAiNameController) ExistMapByAIType() {
 	fmt.Println(ai_type)
 
 	// TODO:Validate ai_type as int64
-
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 
 
 	if exist, err := models.ExistMapByAIType(ai_type); err != nil && err != orm.ErrNoRows {
@@ -100,6 +107,9 @@ func (c *MapAiTypeToAiNameController) UpdateMapByAiType() {
 	map_ai.AiName = ai_name
 
 	exist, err := models.ExistMapByAIType(ai_type)
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	if err != nil &&  err != orm.ErrNoRows{
 		c.Ctx.Abort(http.StatusBadRequest,err.Error())
 		c.Data["json"] = "Can not update AI Type"
@@ -141,7 +151,9 @@ func (c*MapAiTypeToAiNameController) FindMapByAiTypeAndAiName(){
 	// TODO:Validate ai_type as int64, ai_name as string
 
 	res, err := models.FindMapByAiTypeAndAiName(aitypeInt,ainameStr)
-
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	if err != nil &&  err != orm.ErrNoRows{
 		c.Ctx.Abort(http.StatusBadRequest,err.Error())
 		c.Data["json"] = "Can not find AI Type"
@@ -164,7 +176,9 @@ func (c*MapAiTypeToAiNameController) DeleteMapByAiType() {
 
 
 	// TODO:Validate ai_type as int64, ai_name as string
-
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	err := models.DeleteMapByAiType(aiTypeInt)
 
 	if err != nil{
@@ -192,7 +206,9 @@ func (c*MapAiTypeToAiNameController) DeleteMapByAiTypes() {
 	fmt.Println("------------------listaiTypeInt")
 	fmt.Println(listaiTypeInt)
 
-
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	// TODO:Validate ai_type as int64, ai_name as string
 
 	err := models.DeleteUserByAiTypes(listaiTypeInt)

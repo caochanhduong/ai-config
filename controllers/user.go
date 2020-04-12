@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"ai-config-project/models"
+	"ai-config-backend/models"
 	"github.com/astaxie/beego"
 	"net/http"
 	"fmt"
@@ -17,6 +17,9 @@ type UserController struct {
 
 func (c *UserController) GetAllUser() {
 	list,err := models.GetAllUser()
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	if err != nil{
 		c.Ctx.Abort(http.StatusBadRequest,err.Error())
 		c.Data["json"] = err.Error()
@@ -52,6 +55,9 @@ func (c *UserController) ExistUserByID(){
 			c.Ctx.Output.SetStatus(http.StatusOK)
 		}
 	}
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	c.ServeJSON()
 }
 
@@ -97,6 +103,9 @@ func (c *UserController) AddUser() {
 		c.Ctx.Abort(http.StatusBadRequest, err.Error())
 		c.Data["json"] = err.Error()
 	}
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	c.ServeJSON()
 }
 
@@ -155,7 +164,9 @@ func (c *UserController) UpdateUserById() {
 		c.Ctx.Output.SetStatus(http.StatusCreated)
 		c.Data["json"] = user
 	}
-	
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	c.ServeJSON()
 }
 
@@ -198,6 +209,9 @@ func (c*UserController) FindUser(){
 	}
 
 	c.Ctx.Output.SetStatus(http.StatusOK)
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	c.Data["json"] = res
 
 	
@@ -223,6 +237,9 @@ func (c*UserController) DeleteUserById() {
 	}
 
 	c.Ctx.Output.SetStatus(http.StatusOK)
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	c.Data["json"] = "Delete success"
 
 	c.ServeJSON()
@@ -253,6 +270,9 @@ func (c*UserController) DeleteUserByIds() {
 	}
 
 	c.Ctx.Output.SetStatus(http.StatusOK)
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	c.Data["json"] = "Delete success"
 
 	c.ServeJSON()

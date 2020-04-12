@@ -82,7 +82,7 @@ func FindMapByAiTypeAndAiName(AiType int64, AiName string) ([]MapAiTypeToAiName,
 		cond = cond.And("ai_type",AiType)
 	}
 
-	if AiName != "" {
+	if AiName != " " {
 		cond = cond.And("ai_name",AiName)
 	}
 	var v []MapAiTypeToAiName

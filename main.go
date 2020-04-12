@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "ai-config-project/routers"
+	_ "ai-config-backend/routers"
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/astaxie/beego"

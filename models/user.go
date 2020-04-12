@@ -96,7 +96,7 @@ func FindUser(id int64, account string, ai_type int64, start_time int64, duratio
 	if end_time != 0 {
 		cond = cond.And("end_time",end_time)
 	}
-	if account != "" {
+	if account != " " {
 		cond = cond.And("account",account)
 	}
 	var v []User

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"ai-config-project/models"
+	"ai-config-backend/models"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -16,6 +16,9 @@ type AdminUserController struct {
 }
 
 func (c *AdminUserController) GetAllAdminUser() {
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	if list,err := models.GetAllAdminUser(); err != nil{
 		c.Ctx.Abort(http.StatusBadRequest,err.Error())
 		c.Data["json"] = err.Error()
@@ -27,6 +30,9 @@ func (c *AdminUserController) GetAllAdminUser() {
 }
 
 func (c *AdminUserController) ExistAdminUserByAccountAndPassword(){
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	var ob models.AdminUser
 	json.Unmarshal(c.Ctx.Input.RequestBody,&ob)
 	fmt.Println(ob)
@@ -69,6 +75,9 @@ func (c *AdminUserController) ExistAdminUserByAccountAndPassword(){
 
 func (c *AdminUserController) ExistAdminUserByAccount(){
 	var ob models.AdminUser
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	json.Unmarshal(c.Ctx.Input.RequestBody,&ob)
 	fmt.Println(ob)
 	account := ob.Account
@@ -92,6 +101,9 @@ func (c *AdminUserController) ExistAdminUserByAccount(){
 }
 
 func (c *AdminUserController) AddAdminUser() {
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+	c.Ctx.ResponseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	var ob models.AdminUser
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	fmt.Println(ob)
